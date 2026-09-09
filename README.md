@@ -3,13 +3,13 @@ Transforming Shannon Entropy and Softmax scalars into grounded geometric numeric
 Bridging physical thermodynamics and informational entropy flawlessly. 
 
 CITE
-Equidistribution and the residual seed
+Equidistribution and The Residual Seed
 https://github.com/TheAstrographer/The-Thinnest-Triangle → equidistribution.tex
 
-Emergent topological-geometric expansion
+Emergent Topological-Geometric Expansion
 https://github.com/TheAstrographer/Cosmological-Theses → emergent_topological_geometric_expansion.tex
 
-Geometric pressurization of the Cosmological Clock
+Geometric Pressurization of the Cosmological Clock
 https://github.com/TheAstrographer/Joshua-Christopher-Ryan-s-Cosmo-Clock → geometric_pressurization.py thesis.tex, bridge_function.py, especially cosmo_clock_360_sphere.py (and the companion kernel-division sphere script).
 
 
