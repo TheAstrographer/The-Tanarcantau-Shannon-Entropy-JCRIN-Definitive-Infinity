@@ -10,37 +10,37 @@ def run_numerical_verification(filename="verification_matrix.csv"):
     """
     # 1. Initialize training phase λ from 0 to 0.99 (bounds upper semicircle decay track)
     lambdas = np.linspace(0, 0.99, 100)
-    
+   
     # 2. Derive the continuous radial temperature schedule: τ(λ) = 2π(1 - λ)
     tau_vals = 2 * np.pi * (1 - lambdas)
-    
+   
     # 3. Establish sample token locations by phase angles t_i on the upper semicircle
-    t_angles = np.array([0.1, 0.5, 1.2, 2.0, 2.8]) 
-    
+    t_angles = np.array([0.1, 0.5, 1.2, 2.0, 2.8])
+   
     # 4. Define the exact transcendental angular gates (in radians for precision calculations)
     theta = np.arctan(2 * np.pi)
     phi = np.arctan(np.pi)
     psi = theta - phi
     alpha = 0.5 * theta
-    
+   
     matrix_records = []
-    
+   
     for l, tau in zip(lambdas, tau_vals):
         # Orthogonal real shadows project raw logits: z_i = Re(p_i) = τ * cos(t_i)
         logits = tau * np.cos(t_angles)
-        
+       
         # Temperature-scaled Softmax: P_i = exp(z_i / τ) / Σ exp(z_j / τ)
-        # Note: Because z_i scales linearly with τ, the τ parameter cancels out natively, 
+        # Note: Because z_i scales linearly with τ, the τ parameter cancels out natively,
         # completely stabilizing the distribution against catastrophic thermodynamic collapse.
         exp_logits = np.exp(logits / tau)
         probabilities = exp_logits / np.sum(exp_logits)
-        
+       
         # Compute exact Shannon Entropy H(P(λ)) = -Σ P_i * log2(P_i)
         shannon_entropy = -np.sum(probabilities * np.log2(probabilities + 1e-15))
-        
+       
         # Compute token probability distribution variance to monitor representation diversity
         prob_variance = np.var(probabilities)
-        
+       
         matrix_records.append({
             "lambda": round(l, 4),
             "tau_lambda": round(tau, 6),
@@ -51,67 +51,21 @@ def run_numerical_verification(filename="verification_matrix.csv"):
             "gate_psi_deg": round(np.degrees(psi), 4),
             "gate_alpha_deg": round(np.degrees(alpha), 4)
         })
-        
+       
     # Compile execution results into a production-grade data frame
     verification_df = pd.DataFrame(matrix_records)
-    
+   
     # Export system validation verification matrix to a structured CSV file
     verification_df.to_csv(filename, index=False)
-    print(f"[SUCCESS] Invariant validation matrix generated and exported to: {filename}")
+   
+    # Output quick terminal verification checkpoints
+    print("[SUCCESS] Invariant validation matrix generated perfectly.")
+    print("\nHead summary (Initial States):")
+    print(verification_df.head(5))
+    print("\nTail summary (Asymptotic Convergence States):")
+    print(verification_df.tail(5))
+   
     return verification_df
 
 if __name__ == "__main__":
-    df = run_numerical_verification()     |   import numpy as np
-import pandas as pd
-
-# Define the lambda range from 0 to 0.99 (avoiding absolute zero to prevent division by zero in raw softmax)
-lambdas = np.linspace(0, 0.99, 100)
-
-# 1. Radial schedule: τ(λ) = 2π(1 - λ)
-tau_vals = 2 * np.pi * (1 - lambdas)
-
-# 2. Define angles for sample tokens (e.g., 5 tokens distributed along the upper semicircle)
-# Phase angles t_i distributed across the contour
-t_angles = np.array([0.1, 0.5, 1.2, 2.0, 2.8]) # upper semicircle phase angles
-
-# Target angular invariants for verification tracking
-theta = np.arctan(2 * np.pi)
-phi = np.arctan(np.pi)
-psi = theta - phi
-alpha = 0.5 * theta
-
-results = []
-
-for l, tau in zip(lambdas, tau_vals):
-    # Logits are realized as the real parts (orthogonal shadows): z_i = τ * cos(t_i)
-    logits = tau * np.cos(t_angles)
-    
-    # Temperature-scaled softmax: P_i = exp(z_i / τ) / sum(exp(z_j / τ))
-    # Note that exp(τ cos(t_i) / τ) simplifies analytically to exp(cos(t_i))
-    # This elegantly demonstrates why rank collapse is avoided: the probability distribution 
-    # remains structurally invariant to raw temperature spikes!
-    exp_logits = np.exp(logits / tau)
-    probabilities = exp_logits / np.sum(exp_logits)
-    
-    # Calculate Shannon Entropy H(P(λ)) = -sum(P_i * log2(P_i))
-    entropy = -np.sum(probabilities * np.log2(probabilities + 1e-15))
-    
-    # Track gradient stability indicator (variance of probabilities should not collapse to 0 or spike)
-    prob_variance = np.var(probabilities)
-    
-    results.append({
-        "lambda": l,
-        "tau_lambda": tau,
-        "shannon_entropy": entropy,
-        "prob_variance": prob_variance,
-        "gate_theta_deg": np.degrees(theta),
-        "gate_phi_deg": np.degrees(phi),
-        "gate_psi_deg": np.degrees(psi),
-        "gate_alpha_deg": np.degrees(alpha)
-    })
-
-df = pd.DataFrame(results)
-# Show a summary of the data matrix to verify structure
-print(df.head(5))
-print("\nTail summary:")
-print(df.tail(5))
+    df = run_numerical_verification()
