@@ -1,0 +1,25 @@
+The polar identification is forced by the geometry
+The mapping
+\[
+x(\lambda)=\tau(\lambda)\cos t(\lambda),\qquad y(\lambda)=\tau(\lambda)\sin t(\lambda)
+\]
+is not a convenient coordinate choice imposed after the fact. It is the unique polar chart induced by the half-winding contour itself.
+Begin with the ray
+\[
+z(t)=t\,(1+2\pi i),\qquad t>0.
+\]
+Its argument is locked at the constant value \(\arctan(2\pi)\). When this ray is closed by the upper semicircle of radius (R), the resulting compact path \(\Gamma_R\) is a simple closed curve of winding number \(1/2\) about the origin. Every point of \(\Gamma_R\) therefore possesses a well-defined modulus and a well-defined argument relative to the origin.  
+The modulus is precisely the radial coordinate we have already identified with temperature:
+\[
+|z|=\tau(\lambda)=2\pi(1-\lambda).
+\]
+The argument is the angular coordinate \(t(\lambda)\) measured along the contour. Consequently the Cartesian projections of (z) onto the real and imaginary axes are forced to be
+\[
+\operatorname{Re}(z)=\tau\cos t,\qquad\operatorname{Im}(z)=\tau\sin t.
+\]
+No other identification is compatible with the embedding of \(\Gamma_R\) in the complex plane. Any alternative change of variables would either destroy the half-winding (thereby altering the topological temperature scale) or fail to respect the modulus-argument decomposition that the contour inherits from \(\mathbb{C}\).
+Thus the polar form is the coordinate expression of the geometry, not an external decoration. Once the half-winding path is chosen as the carrier of the entropy–temperature equivalence, the mapping
+\[
+(x(\lambda),y(\lambda))=(\tau(\lambda)\cos t(\lambda),\tau(\lambda)\sin t(\lambda))
+\]
+appears automatically as the only chart in which the softmax logits live on the contour and the Shannon entropy \(H(P(\lambda))\) becomes the entropy of a system at temperature \(\tau(\lambda)\).
