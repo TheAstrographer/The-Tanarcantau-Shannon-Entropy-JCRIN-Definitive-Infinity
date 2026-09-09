@@ -3,6 +3,7 @@ Transforming Shannon Entropy and Softmax scalars into grounded geometric numeric
 Bridging physical thermodynamics and informational entropy flawlessly. 
 
 CITE
+
 Equidistribution and The Residual Seed
 https://github.com/TheAstrographer/The-Thinnest-Triangle → equidistribution.tex
 
