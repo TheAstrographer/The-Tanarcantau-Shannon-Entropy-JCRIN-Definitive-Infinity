@@ -1,0 +1,123 @@
+Complete list of all key equations  
+(from the original handwritten notes)
+
+1. Shannon Entropy
+\[
+H\bigl(P(\lambda)\bigr)=-\sum_i P(x_i\mid r(\lambda))\log P(x_i\mid r(\lambda))
+\]
+
+\[
+H\bigl(P(\lambda)\bigr)=-\sum_i P_i\log_2 P_i
+\]
+
+2. Infinite sums and integral
+\[
+\sum_{i=1}^{n}a_i=\sum_{i=1}^{n}\arg\left(\frac{z_{n+1}}{z_n}\right)
+\]
+
+\[
+\sum_{i=0}^{\infty}a_i=\int_0^1|\sin(2\pi x)|\,dx=\frac{2}{\pi}
+\]
+
+\[
+\bigcup_{i\in I}A_i=\bigoplus_{i\in I}V_i
+\]
+
+3. Limiting argument and phase
+\[
+\lim_{N\to\infty}\Phi_N=-\arctan(2\pi)\approx-1.4129651365\,\text{rad}\approx-80.9569^\circ
+\]
+
+\[
+\lim_{t\to 0^+}\arg\bigl(z(t)\bigr)=\arctan(2\pi)\approx1.4129651365\,\text{rad}\approx80.9569^\circ
+\]
+
+\[
+e^{i\phi_N}=e^{-i\pi}=-1
+\]
+
+4. Complex path and half-winding contour
+\[
+z(t)=t\,(1+2\pi i),\qquad t>0
+\]
+
+\[
+\frac{1}{2\pi i}\int_{\Gamma_R}\frac{dz}{z}=\frac12
+\]
+
+5. Radial temperature schedule
+\[
+\tau(\lambda)=2\pi(1-\lambda),\qquad\lambda\in[0,1]
+\]
+
+6. Polar identification (canonical)
+\[
+x(\lambda)=\tau(\lambda)\cos t(\lambda)
+\]
+
+\[
+y(\lambda)=\tau(\lambda)\sin t(\lambda)
+\]
+
+\[
+z_i=\operatorname{Re}(p_i)=\tau\cos t_i
+\]
+
+7. Temperature-scaled Softmax
+\[
+P_i=\frac{\exp(z_i/\tau)}{\sum_j\exp(z_j/\tau)}
+\]
+
+\[
+P_i=\frac{\exp(\cos t_i)}{\sum_j\exp(\cos t_j)}\quad\text{(after cancellation)}
+\]
+
+8. Attention
+\[
+A_t=\operatorname{softmax}\left(\frac{Q_tK_t^\top}{\sqrt{d_k}\cdot\tau(\lambda)}\right)
+\]
+
+\[
+\phi_{\rm wind}(\lambda,n)=\tau(\lambda)+n\delta
+\]
+
+9. Angular invariants (gates)
+\[
+\theta=\arctan(2\pi)\approx1.41296514\,\text{rad}\approx80.9569^\circ
+\]
+
+\[
+\phi=\arctan(\pi)\approx1.26262726\,\text{rad}\approx72.3432^\circ
+\]
+
+\[
+\Psi=\theta-\phi\approx0.15033788\,\text{rad}\approx8.6137^\circ
+\]
+
+\[
+\alpha=\frac12\theta\approx0.70648257\,\text{rad}\approx40.4785^\circ
+\]
+
+\[
+K_{\rm norm}\approx0.70699
+\]
+
+10. Residual and effective angle
+\[
+\delta_{\rm residual}\approx0.00517\,\text{rad}
+\]
+
+\[
+\theta_{\rm effective}=\theta_{\rm base}+n\cdot\delta
+\]
+
+\[
+1-P_t(v^*)\le|V|\,e^{-A_{\min}/\tau}
+\]
+
+11. Trigonometric identities of the separation
+\[
+\sin\Psi\approx0.149772,\qquad\cos\Psi\approx0.998872,\qquad\tan\Psi\approx0.151481
+\]
+
+These are all the central equations that appear in the original notes.
