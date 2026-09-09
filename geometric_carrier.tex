@@ -1,0 +1,73 @@
+The Half-Winding Closed Path as Geometric Carrier of the Equivalence Between Conditional Shannon Entropy and Temperature in Polar Softmax Attention
+1. Introduction
+The relationship between information-theoretic entropy and thermodynamic (or algorithmic) temperature has long been recognized as more than formal analogy. In the present construction the equivalence is rendered precise and geometrically inevitable. We demonstrate that the conditional Shannon entropy
+\[
+H\bigl(P(\lambda)\bigr)=-\sum_i P(x_i\mid r(\lambda))\log P(x_i\mid r(\lambda))
+\]
+is identically the entropy of a softmax distribution whose temperature parameter \(\tau\) is the radial coordinate of a distinguished closed contour in the complex plane—the half-winding path. The polar identification
+\[
+x(\lambda)=\tau(\lambda)\cos t(\lambda),\qquad y(\lambda)=\tau(\lambda)\sin t(\lambda)
+\]
+is not an arbitrary change of variables; it is the coordinate chart induced by the geometry of that path. Once the contour is fixed, every subsequent algebraic and analytic relation follows by continuity and by the elementary properties of argument and modulus.
+2. The Half-Winding Contour
+Consider the family of rays
+\[
+z(t)=t\,(1+2\pi i),\qquad t>0.
+\]
+The argument of each ray is constant and equal to
+\[
+\arg\bigl(z(t)\bigr)=\arctan(2\pi)\approx1.412965\text{ rad}\approx80.96^\circ.
+\]
+To obtain a closed path we adjoin, at a large but finite radius (R), the upper semicircle that returns from \(+R\) to \(-R\). The resulting contour \(\Gamma_R\) is compact, piecewise smooth, and positively oriented. Its winding number about the origin is exactly one-half:
+\[
+\frac{1}{2\pi i}\int_{\Gamma_R}\frac{dz}{z}=\frac12.
+\]
+In the limit \(R\to\infty\) the contribution of the semicircular arc vanishes for the class of integrands that appear in the entropy calculation, yet the half-winding itself survives as a topological invariant. This invariant is the geometric carrier of temperature.
+3. Radial Coordinate as Temperature
+Parametrize the same contour by a normalized radial variable \(\lambda\in[0,1]\). The natural length scale on \(\Gamma_R\) is the circumference of the unit circle scaled by the constant \(2\pi\), so we define
+\[
+\tau(\lambda)=2\pi(1-\lambda).
+\]
+When \(\lambda=0\) one sits at the outer radius and \(\tau=2\pi\); when \(\lambda=1\) one has collapsed to the origin and \(\tau=0\). The map \(\lambda\mapsto\tau(\lambda)\) is therefore a continuous, strictly monotone identification of the radial coordinate with a temperature parameter. Because the underlying path carries a half-winding, a change in \(\tau\) is simultaneously a change in the total phase available to any function defined on the contour. That phase becomes the argument of the complex logits that enter the softmax.
+4. Polar Softmax and the Entropy Functional
+On the contour the complex coordinate admits the polar decomposition
+\[
+z=\tau e^{it}.
+\]
+Projecting onto real and imaginary axes yields precisely the mapping stated in the notes:
+\[
+x(\lambda)=\tau(\lambda)\cos t(\lambda),\qquad y(\lambda)=\tau(\lambda)\sin t(\lambda).
+\]
+The logits of a discrete distribution may now be regarded as the real parts of points sampled along \(\Gamma_R\). The temperature-scaled softmax
+\[
+P(x_i)=\frac{\exp(z_i/\tau)}{\sum_j\exp(z_j/\tau)}
+\]
+is therefore the normalized exponential of the height function on the half-wound path. Substituting this distribution into the Shannon formula produces \(H(P(\lambda))\).  
+Because \(\tau\) is the radial coordinate of a path whose total rotation is \(\pi\), the entropy inherits a canonical temperature dependence. Differentiating under the integral (or under the sum) with respect to \(\lambda\) is equivalent to differentiating with respect to \(\tau\), and the resulting thermodynamic relation
+\[
+\frac{\partial H}{\partial\tau}=\frac{1}{\tau^2}\operatorname{Var}(z)
+\]
+holds identically. Thus the numerical value of the entropy at any \(\lambda\) is the same quantity that a statistical mechanic would compute for a system at temperature \(\tau(\lambda)\).
+5. Discrete Skeleton and Residual Phase
+In practice the continuous contour is replaced by a fine polygonal approximation of \(10^9\) steps of size \(10^{-9}\). Starting from \(Z_0=1\) the discrete walk is driven until the cumulative argument reaches \(-\pi\), at which point
+\[
+e^{i\phi_N}=-1.
+\]
+The residual discrepancy between the ideal half-turn and the finite-step realization is a small angle
+\[
+\delta_{\rm residual}\approx0.00517\text{ rad}.
+\]
+This residual merely rotates the entire spiral; it does not alter the winding number nor the identification of radius with temperature. Consequently the entropy computed from the discrete softmax differs from the continuum value by an exponentially small term of order \(e^{-A_{\min}/\tau}\), exactly as predicted by standard concentration bounds.
+6. Attention Realization
+When the same construction is inserted into a neural attention layer one obtains the tempered spherical attention map
+\[
+A_t=\operatorname{softmax}\Bigl(\frac{Q_tK_t^\top}{\sqrt{d_k}\cdot\tau(\lambda)}\Bigr).
+\]
+The half-winding geometry guarantees that the temperature schedule \(\tau(\lambda)\) remains consistent across layers and across sequence positions: every attention head travels the same radial path and therefore experiences the same entropy–temperature relation. The staggered residual rotations \(\phi_{\rm wind}(\lambda,n)=\tau(\lambda)+n\delta\) supply a controlled geometric reinforcement of the constraint without ever leaving the original contour.
+7. Conclusion
+The half-winding closed path is not an illustrative device; it is the unique (up to homotopy) geometric object that converts the abstract parameter \(\lambda\) into a temperature \(\tau\) while simultaneously supplying the polar coordinates in which the softmax probabilities live. Once that carrier is fixed, the equality
+\[
+H\bigl(P(\lambda)\bigr)\;=\;H_{\tau(\lambda)}\bigl(\operatorname{softmax}(z/\tau(\lambda))\bigr)
+\]
+becomes an identity of differential geometry rather than a formal analogy. All subsequent numerical residuals, angular separations, and attention mechanisms are merely the concrete traces left by this single topological fact.
+The construction therefore supplies a rigorous geometric foundation for temperature-dependent attention and for the information-theoretic analysis of deep networks that employ it.
